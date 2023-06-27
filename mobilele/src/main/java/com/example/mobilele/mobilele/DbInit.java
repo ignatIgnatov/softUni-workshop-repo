@@ -4,10 +4,8 @@ import com.example.mobilele.mobilele.model.entities.*;
 import com.example.mobilele.mobilele.model.entities.enums.EngineEnum;
 import com.example.mobilele.mobilele.model.entities.enums.ModelCategoryEnum;
 import com.example.mobilele.mobilele.model.entities.enums.TransmissionEnum;
-import com.example.mobilele.mobilele.repository.BrandRepository;
-import com.example.mobilele.mobilele.repository.ModelRepository;
-import com.example.mobilele.mobilele.repository.OfferRepository;
-import com.example.mobilele.mobilele.repository.UserRepository;
+import com.example.mobilele.mobilele.model.entities.enums.UserRoleEnum;
+import com.example.mobilele.mobilele.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -24,13 +22,15 @@ public class DbInit implements CommandLineRunner {
     private final OfferRepository offerRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final UserRoleRepository userRoleRepository;
 
-    public DbInit(ModelRepository modelRepository, BrandRepository brandRepository, OfferRepository offerRepository, PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public DbInit(ModelRepository modelRepository, BrandRepository brandRepository, OfferRepository offerRepository, PasswordEncoder passwordEncoder, UserRepository userRepository, UserRoleRepository userRoleRepository) {
         this.modelRepository = modelRepository;
         this.brandRepository = brandRepository;
         this.offerRepository = offerRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
     @Override
@@ -52,20 +52,36 @@ public class DbInit implements CommandLineRunner {
         ModelEntity nc750sModel = initNC750S(hondaBrand);
         createFiestaOffer(fiestaModel);
 
-        initAdmin();
+        initUsers();
 
     }
 
-    private void initAdmin() {
+    private void initUsers() {
+
+        UserRoleEntity adminRole = new UserRoleEntity().setRole(UserRoleEnum.ADMIN);
+        UserRoleEntity userRole = new UserRoleEntity().setRole(UserRoleEnum.USER);
+
+        userRoleRepository.saveAll(List.of(adminRole, userRole));
+
         UserEntity admin = new UserEntity();
         admin
                 .setFirstName("Ignat")
                 .setLastName("Ignatov")
                 .setUsername("admin")
-                .setPassword(passwordEncoder.encode("1423"));
-
+                .setPassword(passwordEncoder.encode("1423"))
+                .setUserRoles(List.of(userRole, adminRole));
         setCurrentTimeStamp(admin);
-        userRepository.save(admin);
+
+        UserEntity pesho = new UserEntity();
+        pesho
+                .setFirstName("Petar")
+                .setLastName("Ivanov")
+                .setUsername("pesho")
+                .setPassword(passwordEncoder.encode("1423"))
+                .setUserRoles(List.of(userRole));
+        setCurrentTimeStamp(pesho);
+
+        userRepository.saveAll(List.of(admin, pesho));
     }
 
     private void createFiestaOffer(ModelEntity modelEntity) {

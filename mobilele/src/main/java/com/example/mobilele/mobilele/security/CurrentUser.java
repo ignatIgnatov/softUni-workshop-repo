@@ -26,10 +26,14 @@ public class CurrentUser {
         return this;
     }
 
-    public CurrentUser setUserRoles(List<UserRoleEnum> userRoles) {
+    public CurrentUser setUserRoles(List<UserRoleEnum> newUserRoles) {
         userRoles.clear();
-        userRoles.addAll(userRoles);
+        userRoles.addAll(newUserRoles);
         return this;
+    }
+
+    public boolean isAdmin() {
+        return userRoles.contains(UserRoleEnum.ADMIN);
     }
 
     public boolean isAnonymous() {

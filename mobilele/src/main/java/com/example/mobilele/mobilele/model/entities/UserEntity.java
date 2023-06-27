@@ -1,9 +1,6 @@
 package com.example.mobilele.mobilele.model.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,7 +14,7 @@ public class UserEntity extends BaseEntity {
     private boolean isActive;
     private String imageUrl;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles")
     private List<UserRoleEntity> userRoles;
 

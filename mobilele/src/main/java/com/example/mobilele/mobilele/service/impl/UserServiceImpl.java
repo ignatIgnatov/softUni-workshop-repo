@@ -1,6 +1,8 @@
 package com.example.mobilele.mobilele.service.impl;
 
 import com.example.mobilele.mobilele.model.entities.UserEntity;
+import com.example.mobilele.mobilele.model.entities.UserRoleEntity;
+import com.example.mobilele.mobilele.model.entities.enums.UserRoleEnum;
 import com.example.mobilele.mobilele.repository.UserRepository;
 import com.example.mobilele.mobilele.security.CurrentUser;
 import com.example.mobilele.mobilele.service.UserService;
@@ -8,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,9 +41,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void loginUser(String username) {
+
+      UserEntity user = userRepository.findByUsername(username).orElseThrow();
+
+      List<UserRoleEnum> userRoles = user
+              .getUserRoles()
+              .stream()
+              .map(UserRoleEntity::getRole)
+              .collect(Collectors.toList());
+
        currentUser
                .setAnonymous(false)
-               .setName(username);
+               .setName(user.getUsername())
+               .setUserRoles(userRoles);
     }
 
     @Override

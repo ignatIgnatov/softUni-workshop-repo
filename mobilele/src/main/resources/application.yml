@@ -13,9 +13,13 @@ spring:
         username: root
     jpa:
         hibernate:
-            ddl-auto: create
+            ddl-auto: create-drop
         open-in-view: false
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.MySQL8Dialect
                 format_sql: true
+    mvc:
+        hiddenmethod:
+          filter:
+            enabled: true

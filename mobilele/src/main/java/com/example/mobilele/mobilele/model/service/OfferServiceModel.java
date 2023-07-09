@@ -11,11 +11,12 @@ public class OfferServiceModel {
 
     @NotNull
     private EngineEnum engine;
-    @NotNull
+    @NotEmpty
     private String imageUrl;
     @NotNull
-    @Positive
+    @PositiveOrZero
     private int mileage;
+    @NotNull
     @DecimalMin("100")
     private BigDecimal price;
     @YearInPastOrPresent(minYear = 1930)

@@ -9,9 +9,6 @@
         <module name="mobilele" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="mobilele" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

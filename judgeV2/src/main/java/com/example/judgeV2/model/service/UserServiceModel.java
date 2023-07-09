@@ -2,9 +2,6 @@ package com.example.judgeV2.model.service;
 
 import com.example.judgeV2.model.entity.RoleEntity;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-
 public class UserServiceModel {
 
     private Long id;

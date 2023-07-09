@@ -1,38 +1,51 @@
-package com.example.mobilele.mobilele.model.entities;
+package com.example.mobilele.mobilele.model.service;
 
 import com.example.mobilele.mobilele.model.entities.enums.EngineEnum;
 import com.example.mobilele.mobilele.model.entities.enums.TransmissionEnum;
+import com.example.mobilele.mobilele.model.validation.YearInPastOrPresent;
 
-import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "offers")
-public class OfferEntity extends BaseEntity {
+public class OfferServiceModel {
 
-    @Enumerated(EnumType.STRING)
+    @NotNull
     private EngineEnum engine;
+    @NotNull
     private String imageUrl;
+    @NotNull
+    @Positive
     private int mileage;
+    @DecimalMin("100")
     private BigDecimal price;
+    @YearInPastOrPresent(minYear = 1930)
     private int year;
+    @NotEmpty
+    @Size(min = 10, max = 512)
     private String description;
-
-    @Enumerated(EnumType.STRING)
+    @NotNull
     private TransmissionEnum transmission;
+    @NotNull
+    private Long modelId;
 
-    @ManyToOne
-    private ModelEntity model;
-
-    @ManyToOne
-    private UserEntity user;
+    public OfferServiceModel() {
+    }
 
     public EngineEnum getEngine() {
         return engine;
     }
 
-    public OfferEntity setEngine(EngineEnum engine) {
+    public OfferServiceModel setEngine(EngineEnum engine) {
         this.engine = engine;
+        return this;
+    }
+
+    public TransmissionEnum getTransmission() {
+        return transmission;
+    }
+
+    public OfferServiceModel setTransmission(TransmissionEnum transmission) {
+        this.transmission = transmission;
         return this;
     }
 
@@ -40,7 +53,7 @@ public class OfferEntity extends BaseEntity {
         return imageUrl;
     }
 
-    public OfferEntity setImageUrl(String imageUrl) {
+    public OfferServiceModel setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }
@@ -49,7 +62,7 @@ public class OfferEntity extends BaseEntity {
         return mileage;
     }
 
-    public OfferEntity setMileage(int mileage) {
+    public OfferServiceModel setMileage(int mileage) {
         this.mileage = mileage;
         return this;
     }
@@ -58,7 +71,7 @@ public class OfferEntity extends BaseEntity {
         return price;
     }
 
-    public OfferEntity setPrice(BigDecimal price) {
+    public OfferServiceModel setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -67,26 +80,8 @@ public class OfferEntity extends BaseEntity {
         return year;
     }
 
-    public OfferEntity setYear(int year) {
+    public OfferServiceModel setYear(int year) {
         this.year = year;
-        return this;
-    }
-
-    public TransmissionEnum getTransmission() {
-        return transmission;
-    }
-
-    public OfferEntity setTransmission(TransmissionEnum transmission) {
-        this.transmission = transmission;
-        return this;
-    }
-
-    public ModelEntity getModel() {
-        return model;
-    }
-
-    public OfferEntity setModel(ModelEntity model) {
-        this.model = model;
         return this;
     }
 
@@ -94,24 +89,23 @@ public class OfferEntity extends BaseEntity {
         return description;
     }
 
-    public OfferEntity setDescription(String description) {
+    public OfferServiceModel setDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public Long getModelId() {
+        return modelId;
     }
 
-    public OfferEntity setUser(UserEntity user) {
-        this.user = user;
+    public OfferServiceModel setModelId(Long modelId) {
+        this.modelId = modelId;
         return this;
     }
 
-
     @Override
     public String toString() {
-        return "OfferEntity{" +
+        return "OfferServiceModel{" +
                 "engine=" + engine +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", mileage=" + mileage +
@@ -119,7 +113,7 @@ public class OfferEntity extends BaseEntity {
                 ", year=" + year +
                 ", description='" + description + '\'' +
                 ", transmission=" + transmission +
-                ", model=" + model +
+                ", modelId=" + modelId +
                 '}';
     }
 }

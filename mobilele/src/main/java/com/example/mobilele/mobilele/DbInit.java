@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.List;
 
 @Component
@@ -39,11 +38,9 @@ public class DbInit implements CommandLineRunner {
 
         BrandEntity fordBrand = new BrandEntity();
         fordBrand.setName("Ford");
-        setCurrentTimeStamp(fordBrand);
 
         BrandEntity hondaBrand = new BrandEntity();
         hondaBrand.setName("Honda");
-        setCurrentTimeStamp(hondaBrand);
 
         brandRepository.saveAll(List.of(fordBrand, hondaBrand));
 
@@ -70,7 +67,6 @@ public class DbInit implements CommandLineRunner {
                 .setUsername("admin")
                 .setPassword(passwordEncoder.encode("1423"))
                 .setUserRoles(List.of(userRole, adminRole));
-        setCurrentTimeStamp(admin);
 
         UserEntity pesho = new UserEntity();
         pesho
@@ -79,7 +75,6 @@ public class DbInit implements CommandLineRunner {
                 .setUsername("pesho")
                 .setPassword(passwordEncoder.encode("1423"))
                 .setUserRoles(List.of(userRole));
-        setCurrentTimeStamp(pesho);
 
         userRepository.saveAll(List.of(admin, pesho));
     }
@@ -97,8 +92,6 @@ public class DbInit implements CommandLineRunner {
                 .setTransmission(TransmissionEnum.MANUAL)
                 .setModel(modelEntity);
 
-        setCurrentTimeStamp(fiestaOffer);
-
         offerRepository.save(fiestaOffer);
     }
 
@@ -111,8 +104,6 @@ public class DbInit implements CommandLineRunner {
                 .setImageUrl("https://motorcycles.honda.bg/wp-content/uploads/sites/4/2017/11/overview_01-9.jpg")
                 .setStartYear(2014)
                 .setBrand(hondaBrand);
-
-        setCurrentTimeStamp(nc750s);
 
         return modelRepository.save(nc750s);
     }
@@ -128,8 +119,6 @@ public class DbInit implements CommandLineRunner {
                 .setEndYear(2002)
                 .setBrand(fordBrand);
 
-        setCurrentTimeStamp(escort);
-
         return modelRepository.save(escort);
     }
 
@@ -143,13 +132,6 @@ public class DbInit implements CommandLineRunner {
                 .setStartYear(1976)
                 .setBrand(fordBrand);
 
-        setCurrentTimeStamp(fiesta);
-
         return modelRepository.save(fiesta);
-    }
-
-    private static void setCurrentTimeStamp(BaseEntity baseEntity) {
-        baseEntity.setCreated(Instant.now());
-        baseEntity.setUpdated(Instant.now());
     }
 }

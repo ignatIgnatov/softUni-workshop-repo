@@ -14,7 +14,7 @@ public class CommentEntity extends BaseEntity {
     @Column(name = "text_content", columnDefinition = "TEXT")
     private String textContent;
     @ManyToOne
-    private UserEntity user;
+    private UserEntity author;
     @ManyToOne
     private HomeworkEntity homework;
 
@@ -39,12 +39,12 @@ public class CommentEntity extends BaseEntity {
         return this;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public UserEntity getAuthor() {
+        return author;
     }
 
-    public CommentEntity setUser(UserEntity user) {
-        this.user = user;
+    public CommentEntity setAuthor(UserEntity author) {
+        this.author = author;
         return this;
     }
 

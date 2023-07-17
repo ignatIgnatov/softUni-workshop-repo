@@ -3,15 +3,13 @@ package com.example.judgeV2.web;
 import com.example.judgeV2.model.binding.UserLoginBindingModel;
 import com.example.judgeV2.model.binding.UserRegisterBindingModel;
 import com.example.judgeV2.model.service.UserServiceModel;
+import com.example.judgeV2.security.CurrentUser;
 import com.example.judgeV2.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -23,10 +21,12 @@ public class UserController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private final CurrentUser currentUser;
 
-    public UserController(UserService userService, ModelMapper modelMapper) {
+    public UserController(UserService userService, ModelMapper modelMapper, CurrentUser currentUser) {
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.currentUser = currentUser;
     }
 
     @GetMapping("/login")
@@ -64,7 +64,7 @@ public class UserController {
 //        httpSession.setAttribute("user", user);
         userService.login(user);
 
-        return "redirect:home";
+        return "redirect:/";
     }
 
     @GetMapping("/register")
@@ -98,4 +98,24 @@ public class UserController {
         userService.logout();
         return "redirect:/";
     }
+
+    //вариант за извикване на профил по id с PathVariable -> този вариант е по-използван в REST архитектурите
+    @GetMapping("/profile/{id}")
+    public String profile(@PathVariable Long id, Model model) {
+
+        if (currentUser.isAnonymous()) {
+            return "redirect:/users/login";
+        }
+
+        model.addAttribute("user", userService.findProfileById(id));
+        return "profile";
+    }
+
+    //вариант за зивикване на профил с куери стрнг параметър /в thymeleaf променяме пътя, като премахваме id в къдравите скоби -> {id}/
+//    @GetMapping("/profile")
+//    public String profile(@RequestParam Long id) {
+//
+//    }
+
+
 }

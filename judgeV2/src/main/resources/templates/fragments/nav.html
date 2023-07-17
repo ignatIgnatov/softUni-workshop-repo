@@ -31,14 +31,14 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/comments/add">Check Homework</a>
+                    <a class="nav-link" href="/comments/add">Add Comment</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="/homework/add">Add Homework</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link" th:href="@{/users/profile/{id}(id = ${@currentUser.id})}" href="#">Profile</a>
                 </li>
 
             </ul>

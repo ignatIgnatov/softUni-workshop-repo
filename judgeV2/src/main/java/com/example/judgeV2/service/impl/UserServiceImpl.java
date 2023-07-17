@@ -3,6 +3,7 @@ package com.example.judgeV2.service.impl;
 import com.example.judgeV2.model.entity.RoleNameEnum;
 import com.example.judgeV2.model.entity.UserEntity;
 import com.example.judgeV2.model.service.UserServiceModel;
+import com.example.judgeV2.model.view.UserProfileViewModel;
 import com.example.judgeV2.repository.UserRepository;
 import com.example.judgeV2.security.CurrentUser;
 import com.example.judgeV2.service.RoleService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -72,9 +74,9 @@ public class UserServiceImpl implements UserService {
                 .findByUsername(username)
                 .orElse(null);
 
-       if (user.getRole().getName() != roleNameEnum) {
-           user.setRole(roleService.findRole(roleNameEnum));
-       }
+        if (user.getRole().getName() != roleNameEnum) {
+            user.setRole(roleService.findRole(roleNameEnum));
+        }
 
         //вариант с Optional
 //        Optional<UserEntity> user = userRepository
@@ -92,5 +94,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity findById(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public UserProfileViewModel findProfileById(Long id) {
+        UserEntity user = userRepository
+                .findById(id)
+                .orElse(null);
+        UserProfileViewModel userProfileViewModel = modelMapper.map(user, UserProfileViewModel.class);
+        userProfileViewModel.setHomeworkSet(user
+                .getHomeworkEntitySet()
+                .stream()
+                .map(h -> h.getExercise().getName())
+                .collect(Collectors.toSet()));
+        return userProfileViewModel;
+    }
+
+    @Override
+    public Long findUsersCount() {
+
+        return userRepository.count();
     }
 }

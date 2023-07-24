@@ -111,7 +111,7 @@ public class UserController {
         return "profile";
     }
 
-    //вариант за зивикване на профил с куери стрнг параметър /в thymeleaf променяме пътя, като премахваме id в къдравите скоби -> {id}/
+    //вариант за зивикване на профил с куери стринг параметър /в thymeleaf променяме пътя, като премахваме id в къдравите скоби -> {id}/
 //    @GetMapping("/profile")
 //    public String profile(@RequestParam Long id) {
 //

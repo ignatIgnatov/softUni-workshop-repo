@@ -47,6 +47,14 @@ public class BooksController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<BookDTO> update(
+            @PathVariable("id") long bookId,
+            @RequestBody BookDTO bookDTO) {
+        throw new UnsupportedOperationException("coming soon!");
+    }
+
+
     @PostMapping()
     public ResponseEntity<BookDTO> create(
             @RequestBody BookDTO bookDTO,

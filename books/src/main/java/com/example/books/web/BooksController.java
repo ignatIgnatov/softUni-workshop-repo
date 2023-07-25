@@ -2,7 +2,6 @@ package com.example.books.web;
 
 import com.example.books.model.dto.BookDTO;
 import com.example.books.service.BooksService;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;

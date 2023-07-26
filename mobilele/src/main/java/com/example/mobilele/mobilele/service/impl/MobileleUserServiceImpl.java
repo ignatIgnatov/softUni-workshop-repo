@@ -38,7 +38,6 @@ public class MobileleUserServiceImpl implements UserDetailsService {
 
     private static UserDetails mapToUserDetails(UserEntity userEntity) {
 
-
         // GrantedAuthority is the representation of a user role in the spring world.
         // SimpleGrandAuthority is an implementation of GrantedAuthority
         // which spring provides for our convenience.

@@ -39,6 +39,32 @@ public class BooksController {
         }
     }
 
+    // Update
+    @PutMapping("/{id}")
+    public ResponseEntity<BookDTO> update(
+            @PathVariable("id") long bookId,
+            @RequestBody BookDTO bookDTO) {
+
+        Long updateBookId = booksService.updateBook(bookDTO.setId(bookId));
+        return updateBookId != null ?
+                ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
+    }
+
+    //Create
+    @PostMapping()
+    public ResponseEntity<BookDTO> create(
+            @RequestBody BookDTO bookDTO,
+            UriComponentsBuilder builder) {
+        long bookId = booksService.createBook(bookDTO);
+
+        URI location = builder.path("/books/{id}").buildAndExpand(bookId).toUri();
+
+        return ResponseEntity
+                .created(location)
+                .build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<BookDTO> deleteBook(@PathVariable("id") Long id) {
         booksService.deleteBook(id);
@@ -46,24 +72,5 @@ public class BooksController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<BookDTO> update(
-            @PathVariable("id") long bookId,
-            @RequestBody BookDTO bookDTO) {
-        throw new UnsupportedOperationException("coming soon!");
-    }
 
-
-    @PostMapping()
-    public ResponseEntity<BookDTO> create(
-            @RequestBody BookDTO bookDTO,
-            UriComponentsBuilder builder) {
-       long bookId = booksService.createBook(bookDTO);
-
-       URI location = builder.path("/books/{id}").buildAndExpand(bookId).toUri();
-
-       return ResponseEntity
-               .created(location)
-               .build();
-    }
 }

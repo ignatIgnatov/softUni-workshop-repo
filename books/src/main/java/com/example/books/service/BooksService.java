@@ -15,4 +15,5 @@ public interface BooksService {
 
     long createBook(BookDTO bookDTO);
 
+    Long updateBook(BookDTO bookDTO);
 }

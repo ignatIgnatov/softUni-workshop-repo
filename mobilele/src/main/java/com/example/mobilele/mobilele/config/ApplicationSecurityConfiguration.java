@@ -27,14 +27,14 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 // with this line we allow access to all static resources
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 // the next line allows access to the home page and registration for everyone
-                .antMatchers("/", "/users/login", "/users/registration").permitAll()
+                .antMatchers("/", "/users/login", "/users/register").permitAll()
                 // next we forbid all other pages for unauthenticated users
                 .antMatchers("/**").authenticated()
                 .and()
                 // next configure login HTML form with two input fields
                 .formLogin()
                 // our login page is located at http://<serverAddress>:<port>/users/auth-login
-                .loginPage("/users/auth-login")
+                .loginPage("/users/login")
                 // this is the name of the input in the login form where user enters her email/username etc...
                 // the value of this input will be presented to our User detail service
                 // those that want to name the input field differently, e.g. email may change the value
@@ -48,7 +48,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .and()
                 .logout()
                 // This is the URL which spring will implement for me and will log the user out
-                .logoutUrl("/logout")
+                .logoutUrl("/users/logout")
                 // where to go after logout
                 .logoutSuccessUrl("/")
                 // remove the session from the server

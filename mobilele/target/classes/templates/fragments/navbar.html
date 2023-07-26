@@ -14,7 +14,7 @@
 <body>
 <div th:fragment="navbar">
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
-        <a class="navbar-brand" href="/"><img alt="car picture" src="/img/car.png" class="logo"></a>
+        <a class="navbar-brand" href="/"><img alt="car picture" src="/images/car.png" class="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -45,14 +45,15 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <form method="POST"
-                          th:action="@{/users/logout}">
-                        <div class="form-inline my-2 my-lg-0 border px-3">
-                            <div class="logged-user"
-                                 ></div>
-                            <input type="submit" class="btn nav-link" value="Logout"></input>
-                        </div>
-                    </form>
+                    <div class="form-inline my-2 my-lg-0 border px-3">
+                        <!-- TODO: -->
+                        <div class="text-white">Welcome, </div>
+                        <!-- TODO: -->
+                        <form th:action="@{/users/logout}" th:method="post">
+                            <input type="submit" class="nav-link" value="Logout">
+                        </form>
+                    </div>
+
                 </li>
 
                 <li class="nav-item">

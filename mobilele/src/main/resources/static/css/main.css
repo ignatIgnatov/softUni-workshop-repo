@@ -1,5 +1,5 @@
 body {
-     background-image: url('/images/1.jpg');
+     background-image: url('/img/1.jpg');
      background-position: center center;
      background-repeat: no-repeat;
      background-attachment: fixed;
@@ -11,9 +11,6 @@ body {
      max-height: 50px;
      padding-right: 100px;
 }
-
-.nav-item input {
-    background-color: transparent}
 
 .container, .container-fluid {
      padding-top: 90px;

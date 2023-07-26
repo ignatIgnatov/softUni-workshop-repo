@@ -12,6 +12,9 @@ body {
      padding-right: 100px;
 }
 
+.nav-item input {
+    background-color: transparent}
+
 .container, .container-fluid {
      padding-top: 90px;
 }

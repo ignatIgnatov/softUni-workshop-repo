@@ -1,119 +1,69 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <span th:replace="~{fragments/head}"></span>
+      <meta charset="UTF-8">
+    <title>MobiLeLeLe</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 
-<div>
-    <nav th:replace="~{fragments/navigation}"></nav>
-</div>
+<div th:replace="fragments/navbar::navbar"></div>
 
 <div class="container">
-
     <h2 class="text-center text-white">Register User</h2>
-
-    <form th:method="POST"
-          th:action="@{/users/register}"
-          th:object="${userRegisterForm}"
+    <form method="POST" 
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
-
         <div class="row">
             <div class="form-group col-md-6 mb-3">
-
-                <label th:for="firstName"
-                       class="text-white font-weight-bold">First Name</label>
-
-                <input type="text"
-                       th:field="*{firstName}"
-                       class="form-control"
-                       placeholder="First name"
-               />
-
-                <p th:if="${#fields.hasErrors('firstName')}"
-                   class="errors alert alert-danger">
-                    First name is required.
-                </p>
-
+                <label for="firstName" class="text-white font-weight-bold">First Name</label>
+                <input  id="firstName" type="text" min="2" max="20" class="form-control"
+                       placeholder="First name"/>
+<!--                <p class="errors alert alert-danger">-->
+<!--                    First name is required.-->
+<!--                </p>-->
             </div>
-
             <div class="form-group col-md-6 mb-3">
-
-                <label th:for="lastName"
-                       class="text-white font-weight-bold">Last Name</label>
-
-                <input th:field="*{lastName}"
-                       class="form-control"
-                       placeholder="Last name"
-                />
-
-                <p th:if="${#fields.hasErrors('lastName')}"
-                   class="errors alert alert-danger">
-                    Last name is required.
-                </p>
+                <label for="lastName" class="text-white font-weight-bold">Last Name</label>
+                <input id="lastName" type="text" min="2" max="20" class="form-control"
+                       placeholder="First name"/>
+<!--                <p class="errors alert alert-danger">-->
+<!--                    Last name is required.-->
+<!--                </p>-->
             </div>
         </div>
-
         <div class="row">
             <div class="form-group col-md-6 mb-3">
-
-                <label th:for="email"
-                       class="text-white font-weight-bold">
-                    Username
-                </label>
-
-                <input th:field="*{email}"
-                       class="form-control"
-                       placeholder="Email"
-                       th:value="*{email}"/>
-                <p th:if="${#fields.hasErrors('email')}"
-                   class="errors alert alert-danger">
-                    Valid email is required.
-                </p>
+                <label for="username" class="text-white font-weight-bold">Username</label>
+                <input id="username" type="text" min="2" max="20" class="form-control"
+                       placeholder="First name"/>
+<!--                <p class="errors alert alert-danger">-->
+<!--                    Username is required.-->
+<!--                </p>-->
             </div>
-        </div>
-
-        <div class="row">
             <div class="form-group col-md-6 mb-3">
-                <label for="password"
-                       class="text-white font-weight-bold">
-                    Password
-                </label>
-                <input id="password"
-                       name="password"
-                       type="password"
-                       class="form-control"
-                       placeholder="Password"
-                />
-                <p th:if="${#fields.hasErrors('password')}"
-                   class="errors alert alert-danger">
-                    Password is required.
-                </p>
-            </div>
-
-            <div class="form-group col-md-6 mb-3">
-
-                <label for="confirmPassword"
-                       class="text-white font-weight-bold">
-                    Confirm Password
-                </label>
-
-                <input id="confirmPassword"
-                       name="confirmPassword"
-                       type="password"
-                       min="2"
-                       max="20"
-                       class="form-control"
+                <label for="password" class="text-white font-weight-bold">Password</label>
+                <input id="password" type="password" min="2" max="20" class="form-control"
                        placeholder="Password"/>
-
-                <p th:if="${#fields.hasErrors('confirmPassword')}"
-                   class="errors alert alert-danger">
-                    Passwords does not match.
-                </p>
-
+<!--                <p class="errors alert alert-danger">-->
+<!--                    Password is required.-->
+<!--                </p>-->
             </div>
+        </div>
+        <div class="form-group">
+            <label class="text-center text-white font-weight-bold" for="roles">Roles</label>
+            <select  id="roles" class="form-control" multiple>
+                <option>
+                </option>
+            </select>
+<!--            <p class="errors alert alert-danger">-->
+<!--                Selecting a role is required.-->
+<!--            </p>-->
         </div>
 
         <div class="row">
@@ -127,7 +77,7 @@
 </div>
 
 <div>
-    <footer></footer>
+     <footer> </footer>
 </div>
 
 </body>

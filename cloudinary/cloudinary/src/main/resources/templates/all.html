@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Upload Successful</h1>
+<a href="/pictures/add">Back to Index</a>
+<th:block th:each="p : ${pictures}" th:object="${p}">
+    <div class="row">
+        <h3 th:text="*{title}"></h3>
+        <img th:src="*{imgUrl}" th:alt="*{title}" width="300px">
+
+        <form th:action="@{/pictures/delete}"
+              th:method="delete">
+            <input type="hidden" name="public_id" th:value="*{publicId}">
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+</th:block>
+</body>
+</html>

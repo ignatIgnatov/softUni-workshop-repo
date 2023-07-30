@@ -2,6 +2,7 @@ package com.example.books.web;
 
 import com.example.books.model.dto.BookDTO;
 import com.example.books.service.BooksService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -27,6 +28,17 @@ public class BooksController {
         List<BookDTO> allBooks = booksService.getAllBooks();
 
         return ResponseEntity.ok(allBooks);
+    }
+
+    @GetMapping("/pageable")
+    public ResponseEntity<Page<BookDTO>> getAllBooks(
+            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "3") Integer pageSize,
+            @RequestParam(name = "sortBy", defaultValue = "id") String sortBy
+    ) {
+        return ResponseEntity.ok(
+                booksService.getBooks(pageNumber, pageSize, sortBy)
+        );
     }
 
     @GetMapping("/{id}")
@@ -71,6 +83,4 @@ public class BooksController {
 
         return ResponseEntity.noContent().build();
     }
-
-
 }

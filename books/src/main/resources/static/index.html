@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Books</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+            crossorigin="anonymous"></script>
 </head>
 <body>
     <button id="loadBooks">LOAD ALL BOOKS</button>
@@ -18,25 +21,8 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Harry Poter</td>
-                <td>J. K. Rowling</td>
-                <td>0-7475-3269-9</td>
-                <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Game of Thrones</td>
-                <td>George R. R. Martin</td>
-                <td>9780553386790</td>
-                <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </td>
-            </tr>
+        <tbody id="authors-container">
+
         </tbody>
     </table>
 
@@ -50,7 +36,7 @@
         <input type="title" id="isbn" placeholder="Isnb...">
         <button>Submit</button>
     </form>
-    <script src="/static/js/app.js"></script>
+    <script src="./app.js"></script>
 </body>
 </html>
 

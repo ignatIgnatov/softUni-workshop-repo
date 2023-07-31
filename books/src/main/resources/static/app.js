@@ -2,12 +2,23 @@ let title = document.getElementById("title");
 let authorName = document.getElementById("author");
 let isbn = document.getElementById("isbn");
 
+let submitBtn = document.getElementById("add-btn");
+let btnEdit = document.getElementById("btn-edit");
+
+let editId = "";
+
+btnEdit.style.display = "none";
+
 $("#loadBooks").click(() => {
   reloadBooks();
 });
 
 $("#add-btn").click(() => {
   addBook();
+});
+
+$("#btn-edit").click(() => {
+  editBook();
 });
 
 function addBook() {
@@ -77,3 +88,51 @@ $("body").on("click", "button.delete-btn", function () {
     method: "DELETE",
   }).then(() => reloadBooks());
 });
+
+$("body").on("click", "button.edit-btn", function () {
+  let bookId = $(this).data("book-id");
+  editId = bookId;
+
+  fetch("http://localhost:8080/books/" + bookId)
+    .then((response) => response.json())
+    .then((data) => {
+      title.value = data.title;
+      isbn.value = data.isbn;
+      author.value = data.author.name;
+    });
+
+  submitBtn.style.display = "none";
+  btnEdit.style.display = "block";
+
+});
+
+function editBook() {
+  let bookId = editId;
+
+  let temp = {
+    title: title.value,
+    isbn: isbn.value,
+    author: {
+      name: authorName.value,
+    },
+  };
+
+  const httpHandlers = {
+    method: "PUT",
+    body: JSON.stringify(temp),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  };
+
+  fetch("http://localhost:8080/books/" + bookId, httpHandlers)
+    .then(() => reloadBooks())
+    .catch((err) => console.error(err));
+
+  title.value = "";
+  authorName.value = "";
+  isbn.value = "";
+
+  submitBtn.style.display = "block";
+  btnEdit.style.display = "none";
+}

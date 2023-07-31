@@ -51,7 +51,7 @@ table button{
     margin-left: 8%;
 }
 
-table button:hover{
+button:hover{
     text-decoration: underline;
 }
 

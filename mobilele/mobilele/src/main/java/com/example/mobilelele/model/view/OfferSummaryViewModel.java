@@ -15,6 +15,8 @@ public class OfferSummaryViewModel {
     private TransmissionEnum transmission;
     private Integer year;
     private ModelEntity model;
+    //TODO
+    private boolean canDelete;
 
     public Long getId() {
         return id;
@@ -22,6 +24,15 @@ public class OfferSummaryViewModel {
 
     public OfferSummaryViewModel setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public boolean isCanDelete() {
+        return canDelete;
+    }
+
+    public OfferSummaryViewModel setCanDelete(boolean canDelete) {
+        this.canDelete = canDelete;
         return this;
     }
 

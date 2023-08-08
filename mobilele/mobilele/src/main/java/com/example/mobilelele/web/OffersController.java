@@ -8,6 +8,7 @@ import com.example.mobilelele.model.view.AddOfferViewModel;
 import com.example.mobilelele.service.BrandService;
 import com.example.mobilelele.service.OfferService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -75,8 +76,18 @@ public class OffersController {
     }
 
     // DELETE
+    @PreAuthorize("isOwner(#id)")
+//    @PreAuthorize("@offerServiceImpl.isOwner(#principal.name, #id)")
     @DeleteMapping("/{id}")
-    public String deleteOffer(@PathVariable Long id) {
+    public String deleteOffer(@PathVariable Long id, Principal principal) {
+
+
+        //Most naive approach - check explicitly if the current user is an
+        //owner and throws exception if this is not the case.
+//        if(!offerService.isOwner(principal.getName(), id)) {
+//            throw new RuntimeException();
+//        }
+
         offerService.delete(id); // -> offerRepo.deleteById(id);
         return "redirect:/offers/all";
     }

@@ -1,12 +1,16 @@
 package com.example.mobilelele.service.impl;
 
 import com.example.mobilelele.model.entity.OfferEntity;
+import com.example.mobilelele.model.entity.UserEntity;
+import com.example.mobilelele.model.entity.UserRoleEntity;
 import com.example.mobilelele.model.entity.enums.EngineEnum;
 import com.example.mobilelele.model.entity.enums.TransmissionEnum;
+import com.example.mobilelele.model.entity.enums.UserRoleEnum;
 import com.example.mobilelele.model.service.OfferServiceModel;
 import com.example.mobilelele.model.view.AddOfferViewModel;
 import com.example.mobilelele.model.view.OfferSummaryViewModel;
 import com.example.mobilelele.repository.OfferRepo;
+import com.example.mobilelele.repository.UserRepo;
 import com.example.mobilelele.service.BrandService;
 import com.example.mobilelele.service.OfferService;
 import com.example.mobilelele.service.UserService;
@@ -15,17 +19,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OfferServiceImpl implements OfferService {
     private final UserService userService;
     private final OfferRepo offerRepo;
+    private final UserRepo userRepo;
     private final ModelMapper modelMapper;
     private final BrandService brandService;
 
-    public OfferServiceImpl(UserService userService, OfferRepo offerRepo, ModelMapper modelMapper, BrandService brandService) {
+    public OfferServiceImpl(UserService userService, OfferRepo offerRepo, UserRepo userRepo, ModelMapper modelMapper, BrandService brandService) {
         this.userService = userService;
         this.offerRepo = offerRepo;
+        this.userRepo = userRepo;
         this.modelMapper = modelMapper;
         this.brandService = brandService;
     }
@@ -65,6 +72,28 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public void delete(Long id) {
         offerRepo.deleteById(id);
+    }
+
+    @Override
+    public boolean isOwner(String username, Long id) {
+       Optional<OfferEntity> offerOpt = offerRepo.findById(id);
+
+       Optional<UserEntity> caller = userRepo.findByUsername(username);
+
+       if (offerOpt.isEmpty() || caller.isEmpty()) {
+           return false;
+        } else {
+           OfferEntity offerEntity = offerOpt.get();
+
+           return isAdmin(caller.get()) ||
+                   offerEntity.getSeller().getUsername().equalsIgnoreCase(username);
+           }
+       }
+
+    private boolean isAdmin(UserEntity user) {
+        return user.getRoles().stream()
+                .map(UserRoleEntity::getName)
+                .anyMatch(r -> r == UserRoleEnum.ADMIN);
     }
 
     @Override

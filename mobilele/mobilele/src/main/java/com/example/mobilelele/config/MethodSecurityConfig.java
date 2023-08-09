@@ -13,15 +13,15 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
     @Autowired
-    private MobileleMethodSecurityExpressionHandler mobileleMethodSecurityExpressionHandler;
+    private ApplicationMethodSecurityExpressionHandler applicationMethodSecurityExpressionHandler;
 
     @Override
     protected MethodSecurityExpressionHandler createExpressionHandler() {
-        return mobileleMethodSecurityExpressionHandler;
+        return applicationMethodSecurityExpressionHandler;
     }
 
     @Bean
-    public MobileleMethodSecurityExpressionHandler createExpressionHandler(OfferService offerService) {
-        return new MobileleMethodSecurityExpressionHandler(offerService);
+    public ApplicationMethodSecurityExpressionHandler createExpressionHandler(OfferService offerService) {
+        return new ApplicationMethodSecurityExpressionHandler(offerService);
     }
 }

@@ -7,11 +7,11 @@ import org.springframework.security.access.expression.method.MethodSecurityExpre
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.core.Authentication;
 
-public class MobileleMethodSecurityExpressionHandler extends DefaultMethodSecurityExpressionHandler {
+public class ApplicationMethodSecurityExpressionHandler extends DefaultMethodSecurityExpressionHandler {
 
     private final OfferService offerService;
 
-    public MobileleMethodSecurityExpressionHandler(OfferService offerService) {
+    public ApplicationMethodSecurityExpressionHandler(OfferService offerService) {
         this.offerService = offerService;
     }
 

@@ -41,7 +41,8 @@
             <div class="card-body">
                 <div class="row">
                     <a class="btn btn-link" th:href="@{/offers/{id}/update(id=${offer.id})}">Update</a>
-                    <form th:action="@{/offers/{id}(id =${offer.id})}" th:method="delete">
+                    <form th:action="@{/offers/{id}(id =${offer.id})}"
+                          th:method="delete">
                         <input type="submit" value="Delete" class="btn btn-link">
                     </form>
                 </div>

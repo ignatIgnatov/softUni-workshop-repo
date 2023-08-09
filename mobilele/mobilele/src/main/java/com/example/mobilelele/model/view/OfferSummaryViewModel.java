@@ -15,7 +15,7 @@ public class OfferSummaryViewModel {
     private TransmissionEnum transmission;
     private Integer year;
     private ModelEntity model;
-    //TODO
+
     private boolean canDelete;
 
     public Long getId() {

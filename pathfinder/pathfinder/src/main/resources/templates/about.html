@@ -1,12 +1,11 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/commons::head"></head>
+<head th:replace="/fragment/commons::head"></head>
 <body>
 <div class="wrapper">
     <!-- Navigation -->
-<header th:replace="fragments/commons::navigation">
-</header>
+    <header th:replace="/fragment/commons::nav"></header>
 
     <div class="info">
         <div></div>
@@ -38,6 +37,5 @@
 </div>
 <!-- Wrapper Ends -->
 </body>
-<footer th:replace="fragments/commons::footer">
-</footer>
+<footer th:replace="/fragment/commons::footer"></footer>
 </html>

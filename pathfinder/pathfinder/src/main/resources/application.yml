@@ -1,7 +1,7 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://${MYSQL_HOST:localhost}:3306/pathfinder?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
+    url: "jdbc:mysql://localhost:3306/pathfinder?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
     username: root
     password: 1423
   servlet:
@@ -12,24 +12,25 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
-  sql:
-    init:
-      mode: always
+   # for running SQL script at startup
+#  sql:
+#    init:
+#      mode: always
   jpa:
     # Choose either MySQL 8 or MySQL 5 below
     # For MySQL 8
-    #database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     #For MySQL 5
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    #database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     open-in-view: false
     properties:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
-#Cloudinary Properties
-#cloudinary:
+  #Cloudinary Properties
+  #cloudinary:
   #api-key: 
   #api-secret: 
   #cloud-name: 

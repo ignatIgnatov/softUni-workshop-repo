@@ -1,21 +1,20 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/commons::head"></head>
+<head th:replace="/fragment/commons::head"></head>
 <body>
 <div class="wrapper">
     <!-- Navigation -->
-    <header th:replace="fragments/commons::nav">
-</header>
+    <header th:replace="/fragment/commons::nav"></header>
 
-    <section th:each="r : ${routes}" th:object="${r}" class="road">
-        <img th:src="*{pictureUrl}" alt="Title image">
+    <section class="road">
+        <img src="/images/pic4.jpg" alt="Title image">
         <div>
-            <h2 th:text="*{name}">Your Route</h2>
-            <p th:text="*{description}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae alias reiciendis deleniti possimus nemo
+            <h2>Your Route</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae alias reiciendis deleniti possimus nemo
                 non repellendus?
                 Quae atque vero modi quidem! Autem cupiditate fugit doloribus ad amet, asperiores provident commodi.</p>
-            <a th:href="@{/routes/details/{id}(id = *{id})}" class="btn">Learn More</a>
+            <a href="/" class="btn">Learn More</a>
         </div>
     </section>
 </div>
